@@ -1,3 +1,8 @@
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -14,6 +19,14 @@ public class CharCode {
 
         String textWords = convertFromSpaceCode(spaceCode);
         System.out.println("Decrypted text: " + textWords);
+
+        try {
+            String key = "secret";
+            String hmac = calculateHMAC(spaceCode, key);
+            System.out.println("HMAC: " + hmac);
+        } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String convertToSpaceCode(String text) {
@@ -75,4 +88,22 @@ public class CharCode {
 
         return result.toString().trim();
     }
+
+    public static String calculateHMAC(String data, String key)
+            throws NoSuchAlgorithmException, InvalidKeyException {
+        String algorithm = "HmacSHA256";
+        Mac mac = Mac.getInstance(algorithm);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), algorithm);
+        mac.init(secretKeySpec);
+        byte[] hmacBytes = mac.doFinal(data.getBytes());
+        return Base64.getEncoder().encodeToString(hmacBytes);
+    }
 }
+
+
+
+
+
+
+
+
