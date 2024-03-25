@@ -23,7 +23,7 @@ public class CharCode {
         try {
             String key = "secret";
             String hmac = calculateHMAC(spaceCode, key);
-            System.out.println("HMAC: " + hmac);
+            System.out.println("Hash Value: " + hmac);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             e.printStackTrace();
         }
