@@ -21,7 +21,11 @@ public class CaesarCipher {
     public static String encrypt(String plaintext, int shift) {
         StringBuilder encryptedText = new StringBuilder();
 
-        for (char character : plaintext.toCharArray()) {
+        // Convert plaintext to space code
+        String spaceCode = CharCode.convertToSpaceCode(plaintext);
+
+        // Apply Caesar cipher encryption on space code
+        for (char character : spaceCode.toCharArray()) {
             if (Character.isLetter(character)) {
                 char base = Character.isLowerCase(character) ? 'a' : 'A';
                 int originalAlphabetPosition = character - base;
@@ -34,4 +38,29 @@ public class CaesarCipher {
         }
 
         return encryptedText.toString();
-    }}
+    }
+
+
+    public static String decrypt(String plaintext, int shift) {
+        StringBuilder decryptedText = new StringBuilder();
+
+        // Convert plaintext to space code
+        String spaceCode = CharCode.convertToSpaceCode(plaintext);
+
+        // Apply Caesar cipher encryption on space code
+        for (char character : spaceCode.toCharArray()) {
+            if (Character.isLetter(character)) {
+                char base = Character.isLowerCase(character) ? 'a' : 'A';
+                int originalAlphabetPosition = character - base;
+                int newAlphabetPosition = (originalAlphabetPosition - shift) % 26;
+                char newCharacter = (char) (base + newAlphabetPosition);
+                decryptedText.append(newCharacter);
+            } else {
+                decryptedText.append(character);
+            }
+        }
+
+        return decryptedText.toString();
+    }
+
+}
