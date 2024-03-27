@@ -13,10 +13,13 @@ public class CaesarCipher {
 
         String encryptedText = encrypt(plaintext, shiftValue);
         System.out.println("Encrypted text: " + encryptedText);
-        System.out.println("Decrypted text: " + plaintext);
+
+        String decryptedText = decrypt(encryptedText, shiftValue);
+        System.out.println("Decrypted text: " + decryptedText);
 
         scanner.close();
     }
+
 
     public static String encrypt(String plaintext, int shift) {
         StringBuilder encryptedText = new StringBuilder();
@@ -40,27 +43,31 @@ public class CaesarCipher {
         return encryptedText.toString();
     }
 
+        // Return the encrypted text
 
-    public static String decrypt(String plaintext, int shift) {
-        StringBuilder decryptedText = new StringBuilder();
+    public static String decrypt(String encryptedText, int shift) {
 
         // Convert plaintext to space code
-        String spaceCode = CharCode.convertToSpaceCode(plaintext);
+        String decryptedCode = CharCode.convertFromSpaceCode(encryptedText);
 
         // Apply Caesar cipher encryption on space code
-        for (char character : spaceCode.toCharArray()) {
+        for (char character : decryptedCode.toCharArray()) {
             if (Character.isLetter(character)) {
                 char base = Character.isLowerCase(character) ? 'a' : 'A';
                 int originalAlphabetPosition = character - base;
                 int newAlphabetPosition = (originalAlphabetPosition - shift) % 26;
                 char newCharacter = (char) (base + newAlphabetPosition);
-                decryptedText.append(newCharacter);
+                decryptedCode.indent(newCharacter);
             } else {
-                decryptedText.append(character);
+                decryptedCode.indent(character);
             }
         }
 
-        return decryptedText.toString();
+        return decryptedCode.toString();
+
     }
 
-}
+    // Return the decrypted t
+    }
+
+
