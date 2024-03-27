@@ -1,21 +1,36 @@
+import java.util.Scanner;
+
 public class BruteForce {
-    public static void bruteForceDecrypt(String encryptedText) {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter plain text: ");
+        String userText = scanner.nextLine();
+        bruteForceDecrypt(userText);
+
+        scanner.close();
+    }
+
+    public static void bruteForceDecrypt(String userText) {
+
         for (int shift = 0; shift < 26; shift++) {
             StringBuilder decryptedText = new StringBuilder();
 
-            for (char character : encryptedText.toCharArray()) {
-                if (character != ' ' && character != '!' && character != '.' && character != ',') { // Check if character is not a space or punctuation
-                    int originalPosition = character - 'A';
-                    int newPosition = (originalPosition - shift) % 26;
-                    newPosition = newPosition < 0 ? newPosition + 26 : newPosition;
-                    char newCharacter = (char) ('A' + newPosition);
+            // Apply Caesar cipher decryption with current shift
+            for (char character : userText.toCharArray()) {
+                if (Character.isLetter(character)) {
+                    char base = Character.isLowerCase(character) ? 'a' : 'A';
+                    int originalAlphabetPosition = character - base;
+                    int newAlphabetPosition = (originalAlphabetPosition - shift + 26) % 26;
+                    char newCharacter = (char) (base + newAlphabetPosition);
                     decryptedText.append(newCharacter);
                 } else {
-                    decryptedText.append(character);
+                    decryptedText.append(character); // Handle characters that are not letters
                 }
             }
 
-            System.out.println(shift + ": " + decryptedText);
+            System.out.println("Shift " + shift + ": " + decryptedText);
         }
     }
+
 }

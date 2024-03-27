@@ -18,6 +18,7 @@ public class CaesarCipher {
         System.out.println("Decrypted text: " + decryptedText);
 
         scanner.close();
+
     }
 
 
@@ -66,8 +67,6 @@ public class CaesarCipher {
         return decryptedCode.toString();
 
     }
-
-    // Return the decrypted t
-    }
+}
 
 
