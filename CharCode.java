@@ -6,9 +6,26 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class CharCode {
+/** Project: SoloLab 5
+ * Purpose Details: To encrypt and decrypt strings using custom language, CaesarCipher, and brute force to decrypt
+ * Course: IST 242
+ * Author: Jacobo Medina
+ * Date Developed: March 20, 2024
+ * Last Date Changed: March 31, 2024
+ * Rev: Last revised March 31st
+ */
 
+
+public class CharCode {
+    /**
+     * Jacobo Medina
+     */
     public static void main(String[] args) {
+
+    /**
+     * Calls and prints out the converter and decrypter for the space code. Receives user text to convert
+     */
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter a sentence:");
@@ -29,7 +46,15 @@ public class CharCode {
         }
     }
 
+    /**
+     * Jacobo Medina
+     */
     public static String convertToSpaceCode(String text) {
+
+    /**
+     * Sets up a hash map for the newly made space code. accepts text object which is converted to all uppercase
+     */
+
         HashMap<Character, String> spaceCodeMap = new HashMap<>();
         spaceCodeMap.put('A', "@!"); spaceCodeMap.put('B', "@!!!"); spaceCodeMap.put('C', "!!!@");
         spaceCodeMap.put('D', "$@!"); spaceCodeMap.put('E', "#"); spaceCodeMap.put('F', "*^&");
@@ -57,8 +82,16 @@ public class CharCode {
 
         return spaceCodeBuilder.toString().trim();
     }
-
+    /**
+     * Jacobo Medina
+     */
     public static String convertFromSpaceCode(String text) {
+
+    /**
+     *same as converter but revresed to reverse back to alphabet characters.
+     * Takes encrypted string and converts back to be printed out in main functionhe
+     */
+
         HashMap<String, Character> spaceToCharMap = new HashMap<>();
         spaceToCharMap.put("@!", 'A'); spaceToCharMap.put("@!!!", 'B'); spaceToCharMap.put("!!!@", 'C');
         spaceToCharMap.put("$@!", 'D'); spaceToCharMap.put("#", 'E'); spaceToCharMap.put("*^&", 'F');
@@ -89,7 +122,15 @@ public class CharCode {
         return result.toString().trim();
     }
 
+    /**
+     * Jacobo Medina
+     */
     public static String calculateHMAC(String data, String key)
+
+    /**
+     * takes the data and key to create a hash number for the converted string
+     */
+
             throws NoSuchAlgorithmException, InvalidKeyException {
         String algorithm = "HmacSHA256";
         Mac mac = Mac.getInstance(algorithm);
