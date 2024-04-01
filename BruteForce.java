@@ -29,7 +29,7 @@ public class BruteForce {
         System.out.println("Your encrypted code: " + encrypt + " will now be decoded using brute force");
 
 
-        bruteForceDecrypt(encrypt);
+        bruteForceEncrypt(encrypt);
 
         scanner.close();
     }
@@ -38,26 +38,27 @@ public class BruteForce {
      * Jacobo Medina
      */
 
-    public static void bruteForceDecrypt(String encrypt) {
+    public static void bruteForceEncrypt(String encrypt) {
         for (int shift = 0; shift < 26; shift++) {
-            StringBuilder decryptedText = new StringBuilder();
+            StringBuilder encryptedText = new StringBuilder();
 
             for (char character : CharCode.convertFromSpaceCode(encrypt).toCharArray()) {
                 if (Character.isLetter(character)) {
                     char base = Character.isLowerCase(character) ? 'a' : 'A';
                     int originalAlphabetPosition = character - base;
-                    int newAlphabetPosition = (originalAlphabetPosition - shift + 26) % 26; // Corrected decryption logic
+                    int newAlphabetPosition = (originalAlphabetPosition - shift + 26) % 26;
                     char newCharacter = (char) (base + newAlphabetPosition);
-                    decryptedText.append(newCharacter);
+                    encryptedText.append(newCharacter);
                 } else {
-                    decryptedText.append(character);
+                    encryptedText.append(character);
                 }
             }
-            String newlang = CaesarCipher.encrypt(decryptedText.toString(), shift);
-            System.out.println("Shift " + shift + " as normal string: " + decryptedText);
+
+            // Decrypt the 'encrypt' string using the current shift value
+            System.out.println("Shift " + shift + " as normal string: " + encryptedText);
+            String newlang = CaesarCipher.encrypt(encryptedText.toString(), shift);
             System.out.println("Shift " + shift + " as new language: " + newlang);
             System.out.println();
         }
     }
-
-}
+    }
