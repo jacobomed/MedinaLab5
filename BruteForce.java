@@ -39,26 +39,38 @@ public class BruteForce {
      */
 
     public static void bruteForceEncrypt(String encrypt) {
-        for (int shift = 0; shift < 26; shift++) {
-            StringBuilder encryptedText = new StringBuilder();
 
+        for (int shift = 0; shift < 26; shift++) {
+            StringBuilder decryptedString = new StringBuilder();
             for (char character : CharCode.convertFromSpaceCode(encrypt).toCharArray()) {
                 if (Character.isLetter(character)) {
                     char base = Character.isLowerCase(character) ? 'a' : 'A';
                     int originalAlphabetPosition = character - base;
                     int newAlphabetPosition = (originalAlphabetPosition - shift + 26) % 26;
                     char newCharacter = (char) (base + newAlphabetPosition);
-                    encryptedText.append(newCharacter);
+                    decryptedString.append(newCharacter);
                 } else {
-                    encryptedText.append(character);
+                    decryptedString.append(character);
                 }
             }
 
-            // Decrypt the 'encrypt' string using the current shift value
-            System.out.println("Shift " + shift + " as normal string: " + encryptedText);
-            String newlang = CaesarCipher.encrypt(encryptedText.toString(), shift);
-            System.out.println("Shift " + shift + " as new language: " + newlang);
+
+            String encryptedText = CaesarCipher.encrypt(CharCode.convertFromSpaceCode(encrypt), shift);
+            System.out.println("Shift " + shift);
+            System.out.println("Normal String: " + decryptedString);
+            System.out.println("Encrypted String: " + CaesarCipher.encrypt(decryptedString.toString(), 5));
             System.out.println();
         }
     }
-    }
+
+
+}
+
+
+
+
+
+
+
+
+
