@@ -22,9 +22,14 @@ public class BruteForce {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter plaintext: ");
         String userText = scanner.nextLine();
+        System.out.print("Enter shift value (integer): ");
+        int shiftValue = scanner.nextInt();
+
+        String encrypt = CaesarCipher.encrypt(userText, shiftValue);
+        System.out.println("Your encrypted code: " + encrypt + " will now be decoded using brute force");
 
 
-        bruteForceDecrypt(userText);
+        bruteForceDecrypt(encrypt);
 
         scanner.close();
     }
@@ -33,28 +38,26 @@ public class BruteForce {
      * Jacobo Medina
      */
 
-    public static void bruteForceDecrypt(String userText) {
+    public static void bruteForceDecrypt(String encrypt) {
         for (int shift = 0; shift < 26; shift++) {
             StringBuilder decryptedText = new StringBuilder();
 
-            for (char character : userText.toCharArray()) {
+            for (char character : CharCode.convertFromSpaceCode(encrypt).toCharArray()) {
                 if (Character.isLetter(character)) {
                     char base = Character.isLowerCase(character) ? 'a' : 'A';
                     int originalAlphabetPosition = character - base;
-                    int newAlphabetPosition = (originalAlphabetPosition + shift) % 26;
+                    int newAlphabetPosition = (originalAlphabetPosition - shift + 26) % 26; // Corrected decryption logic
                     char newCharacter = (char) (base + newAlphabetPosition);
                     decryptedText.append(newCharacter);
                 } else {
                     decryptedText.append(character);
                 }
             }
-            String spaceCode = CharCode.convertToSpaceCode(decryptedText.toString());
-
+            String newlang = CaesarCipher.encrypt(decryptedText.toString(), shift);
             System.out.println("Shift " + shift + " as normal string: " + decryptedText);
-            System.out.println("Shift " + shift + " with new language: " + spaceCode);
+            System.out.println("Shift " + shift + " as new language: " + newlang);
             System.out.println();
         }
     }
-
 
 }
