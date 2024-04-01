@@ -22,42 +22,35 @@ public class BruteForce {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter plaintext: ");
         String userText = scanner.nextLine();
-        System.out.print("Enter shift value (integer): ");
-        int shiftValue = scanner.nextInt();
-
-        String encrypt = CaesarCipher.encrypt(userText, shiftValue);
-        System.out.println("Your encrypted code: " + encrypt + " will now be decoded using brute force");
 
 
-        bruteForceDecrypt(encrypt);
+        bruteForceDecrypt(userText);
 
         scanner.close();
     }
+
     /**
      * Jacobo Medina
      */
 
-    public static void bruteForceDecrypt(String encrypt) {
-
-        /**
-         *takes the plain text and prints out a string with for every shift you can apply to an alphabet string 0-25
-         */
-        // make sure shift keeps inreasing
+    public static void bruteForceDecrypt(String userText) {
         for (int shift = 0; shift < 26; shift++) {
             StringBuilder decryptedText = new StringBuilder();
 
-            for (char character : CharCode.convertFromSpaceCode(encrypt).toCharArray()) {
+            for (char character : userText.toCharArray()) {
                 if (Character.isLetter(character)) {
                     char base = Character.isLowerCase(character) ? 'a' : 'A';
                     int originalAlphabetPosition = character - base;
-                    int newAlphabetPosition = (originalAlphabetPosition - shift + 26 ) % 26;
+                    int newAlphabetPosition = (originalAlphabetPosition + shift) % 26; // Change subtraction to addition
                     char newCharacter = (char) (base + newAlphabetPosition);
                     decryptedText.append(newCharacter);
                 } else {
                     decryptedText.append(character);
                 }
             }
-            System.out.println("Shift " + shift + ": " + decryptedText);
+            String spaceCode = CharCode.convertToSpaceCode(decryptedText.toString());
+
+            System.out.println("Shift " + shift + ": " + spaceCode);
         }
     }
 
