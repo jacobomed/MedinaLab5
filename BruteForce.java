@@ -41,7 +41,7 @@ public class BruteForce {
                 if (Character.isLetter(character)) {
                     char base = Character.isLowerCase(character) ? 'a' : 'A';
                     int originalAlphabetPosition = character - base;
-                    int newAlphabetPosition = (originalAlphabetPosition + shift) % 26; // Change subtraction to addition
+                    int newAlphabetPosition = (originalAlphabetPosition + shift) % 26;
                     char newCharacter = (char) (base + newAlphabetPosition);
                     decryptedText.append(newCharacter);
                 } else {
@@ -50,7 +50,9 @@ public class BruteForce {
             }
             String spaceCode = CharCode.convertToSpaceCode(decryptedText.toString());
 
-            System.out.println("Shift " + shift + ": " + spaceCode);
+            System.out.println("Shift " + shift + " as normal string: " + decryptedText);
+            System.out.println("Shift " + shift + " with new language: " + spaceCode);
+            System.out.println();
         }
     }
 
